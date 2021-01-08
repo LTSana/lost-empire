@@ -1,0 +1,10 @@
+#hero_1 {
+  height: 100vh;
+  background: rgba(0,0,0,0.6);
+}
+
+#main-div {
+  background: url("../../assets/img/backgrounds/539192.png?h=3ae1d5a19af9736f47bf5c3edb0bf5c5") center / cover no-repeat;
+  background-attachment: fixed;
+}
+

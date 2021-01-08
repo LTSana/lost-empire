@@ -1,0 +1,69 @@
+/* Hero 1 */
+
+#hero_1 {
+  background: url("../../assets/img/backgrounds/signin_bk.png?h=0dbdcd19f30ee32964f751a20d1e8bea") center / cover no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+.form-style {
+  background: rgb(14,14,14);
+  padding-top: 20px;
+  padding-right: 20px;
+  padding-left: 20px;
+  padding-bottom: 1px;
+  border-radius: 6px;
+  box-shadow: 2px 2px 12px 1px rgb(28,28,28);
+}
+
+.hero_1_col_img {
+  background: url("../../assets/img/logo/logo0.png?h=0aa5eb9a24c8d45211a2ce230a838430") center / contain no-repeat;
+  width: 100%;
+  height: 90px;
+  margin-bottom: 10px;
+}
+
+.form_input_fields {
+  color: #e8e8e8;
+  background: rgb(14,14,14);
+  border-radius: 0px;
+  border-top-style: none;
+  border-right-style: none;
+  border-left-style: none;
+}
+
+.form_input_fields:focus {
+  color: #e8e8e8;
+  background: #000000;
+  border-radius: 0px;
+  border-top-style: none;
+  border-right-style: none;
+  border-bottom-color: rgb(0,183,172);
+  border-left-style: none;
+  box-shadow: none;
+}
+
+.form_links {
+  text-decoration: none;
+  font-size: 13px;
+  color: var(--cyan);
+  font-weight: bold;
+}
+
+.form_links:hover {
+  text-decoration: none;
+  font-size: 13px;
+  color: rgb(191,191,191);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.signin_btn {
+  margin-bottom: 10px;
+}
+
+.label-email {
+  margin-bottom: 0px;
+  margin-top: 8px;
+}
+

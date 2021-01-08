@@ -1,0 +1,16 @@
+#hero_1 {
+  margin-top: 15px;
+  margin-bottom: 50px;
+}
+
+.order_col {
+  background: rgb(255,255,255);
+  border-style: solid;
+  padding-bottom: 10px;
+  border-radius: 15px;
+}
+
+.search-col {
+  margin-bottom: 20px;
+}
+

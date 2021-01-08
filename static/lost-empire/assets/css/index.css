@@ -1,0 +1,45 @@
+/* Hero 2 */
+
+#hero_2 {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.hero_2_heading0 {
+  font-weight: bold;
+  line-height: 0px;
+  margin-bottom: 45px;
+  margin-top: 35px;
+}
+
+/* hero_3 */
+
+#hero_3 {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  background: linear-gradient(0deg, rgb(0,0,0) 89%, rgb(26,26,26) 100%), rgb(10,10,10);
+}
+
+.hero_3_row_2 {
+  padding-top: 15px;
+}
+
+/* Hero 4 */
+
+#hero_4 {
+  margin-top: 50px;
+  margin-bottom: 150px;
+}
+
+.hero_4_btn {
+  background: #00fff0 !important;
+  color: #000000;
+  border-radius: 10px !important;
+}
+
+.hero_4_btn:hover {
+  background: #00fff0 !important;
+  color: #6f6f6f;
+  border-radius: 10px !important;
+}
+

@@ -1,0 +1,13 @@
+#hero_1 {
+  margin-top: 30px;
+  margin-right: 10px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.div-scroll-order-items {
+  overflow-y: scroll;
+  height: 100vh;
+  overflow-x: hidden;
+}
+

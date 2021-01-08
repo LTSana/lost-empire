@@ -1,0 +1,22 @@
+.history-col {
+  background: #ffffff;
+  border-radius: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-style: solid;
+  border-color: rgb(0,0,0);
+}
+
+.history-col-scroll-div {
+  overflow-y: scroll;
+  height: 120px;
+  background: #e5e5e5;
+  padding-left: 5px;
+  border-radius: 2px;
+}
+
+.history-col-scroll-div > p {
+  border-top-style: none;
+  border-bottom-style: solid;
+}
+

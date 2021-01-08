@@ -1,0 +1,123 @@
+.navigation-clean-search {
+  background: #000000;
+  padding-top: .75rem;
+  padding-bottom: .75rem;
+  color: #333;
+  border-radius: 0;
+  box-shadow: none;
+  border: none;
+  margin-bottom: 0;
+  font-family: Tomorrow, sans-serif;
+}
+
+@media (min-width:768px) {
+  .navigation-clean-search {
+    padding-top: 0rem;
+    padding-bottom: 0rem;
+    background: rgb(0,0,0);
+    font-family: Tomorrow, sans-serif;
+  }
+}
+
+.navigation-clean-search .navbar-brand {
+  font-weight: bold;
+  color: inherit;
+  background: url("../../assets/img/logo/logo0.png?h=0aa5eb9a24c8d45211a2ce230a838430") center / contain no-repeat;
+  height: 60px;
+  width: 140px;
+}
+
+.navigation-clean-search .navbar-brand:hover {
+  color: #222;
+}
+
+.navigation-clean-search .navbar-toggler {
+  border-color: #ddd;
+}
+
+.navigation-clean-search .navbar-toggler:hover, .navigation-clean-search .navbar-toggler:focus {
+  background: none;
+}
+
+.navigation-clean-search .navbar-toggler {
+  color: #888;
+}
+
+.navigation-clean-search .navbar-collapse, .navigation-clean-search .form-inline {
+  border-top-color: #ddd;
+}
+
+.navigation-clean-search .navbar-nav a.active, .navigation-clean-search .navbar-nav > .show > a {
+  background: none;
+  box-shadow: none;
+}
+
+.navigation-clean-search.navbar-light .navbar-nav a.active, .navigation-clean-search.navbar-light .navbar-nav a.active:focus, .navigation-clean-search.navbar-light .navbar-nav a.active:hover {
+  color: #8f8f8f;
+  box-shadow: none;
+  background: none;
+  pointer-events: none;
+}
+
+.navigation-clean-search.navbar .navbar-nav .nav-link {
+  padding-left: 18px;
+  padding-right: 18px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.navigation-clean-search.navbar-light .navbar-nav .nav-link {
+  color: #daebff;
+}
+
+.navigation-clean-search.navbar-light .navbar-nav .nav-link:focus, .navigation-clean-search.navbar-light .navbar-nav .nav-link:hover {
+  color: #6abbff;
+  background-color: transparent;
+}
+
+.navigation-clean-search .action-button, .navigation-clean-button .action-button:active {
+  background: #56c6c6;
+  border-radius: 20px;
+  font-size: inherit;
+  color: #fff !important;
+  box-shadow: none;
+  border: none;
+  text-shadow: none;
+  padding: 8px 20px;
+  transition: background-color 0.25s;
+}
+
+.navigation-clean-search .action-button:hover, .navigation-clean-search .action-button:focus {
+  background: #66d7d7;
+}
+
+.navigation-clean-search .form-inline label {
+  color: #ccc;
+}
+
+.navigation-clean-search .form-inline .search-field {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  border-bottom: 1px solid transparent;
+  border-radius: 10px;
+  color: #ccc;
+  box-shadow: none;
+  color: rgb(255,255,255);
+  transition: border-bottom-color 0.3s;
+  margin-left: 5px;
+}
+
+@media (max-width:767px) {
+  .navigation-clean-search .form-inline .search-field {
+    display: inline-block;
+    width: 80%;
+    margin-left: 5px;
+    border-radius: 10px;
+  }
+}
+
+.navigation-clean-search .form-inline .search-field:focus {
+  border-bottom: 1px solid #ccc;
+  color: rgb(255,255,255);
+}
+

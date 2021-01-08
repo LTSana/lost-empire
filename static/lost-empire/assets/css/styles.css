@@ -1,0 +1,91 @@
+body {
+  background-color: black;
+  font-family: Tomorrow, sans-serif;
+}
+
+:root {
+  scroll-behavior: smooth;
+}
+
+/* Style for Scrollbar */
+
+::-webkit-scrollbar-thumb {
+  background-color: gray;
+}
+
+::-webkit-scrollbar {
+  background-color: black;
+  width: 10px;
+}
+
+/* Style for main Div and give footer space */
+
+#main-div {
+  min-height: 100vh;
+}
+
+.btn.btn-primary {
+  font-weight: bold;
+  background: #b0b0b0;
+  border-color: rgb(255,255,255);
+  border-radius: 50px;
+  color: #000000;
+}
+
+.btn.btn-primary:hover {
+  font-weight: bold;
+  background: #d0d0d0;
+  border-color: rgb(184,184,184);
+}
+
+.btn.btn-primary:hover, .btn.btn-primary:focus, .btn.btn-primary::active, .btn.btn-primary:focus:active {
+  font-weight: bold;
+  background: #b0b0b0;
+  border-color: rgb(184,184,184);
+}
+
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show > .btn-primary.dropdown-toggle {
+  color: #fff;
+  background-color: #4f4f4f;
+  border-color: rgb(184,184,184);
+}
+
+.btn-primary:not(:disabled):not(.disabled).active:focus, .btn-primary:not(:disabled):not(.disabled):active:focus, .show > .btn-primary.dropdown-toggle:focus {
+  box-shadow: 0px 0px rgb(79,79,79);
+}
+
+/* ReCaptcha */
+
+.recaptcha-text-terms {
+  font-size: 12px;
+  color: rgb(191,191,191);
+}
+
+/* Alert Styling */
+
+.alert {
+  padding-top: 0px;
+  padding-bottom: 2px;
+}
+
+/* Input Field Styling */
+
+.form-control {
+  background: rgba(0,0,0,0);
+  border-top-style: none;
+  border-right-style: none;
+  border-left-style: none;
+  border-radius: 0px;
+  color: white;
+}
+
+.form-control:focus {
+  background: rgba(0,0,0,0);
+  border-top-style: none;
+  border-right-style: none;
+  border-left-style: none;
+  border-radius: 0px;
+  color: white;
+  box-shadow: none;
+}
+
