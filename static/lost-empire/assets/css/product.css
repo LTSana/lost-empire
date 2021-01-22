@@ -1,5 +1,6 @@
 #hero_1 {
   margin-top: 30px;
+  margin-bottom: 50px;
 }
 
 .div-separetors {
@@ -11,6 +12,7 @@
 
 .product_image {
   max-height: 100vh;
+  width: 1200px;
 }
 
 .product_size_btn {
@@ -76,5 +78,90 @@
   border-radius: 5px;
   margin-top: 5px;
   margin-bottom: 5px;
+}
+
+.mini_product_image {
+  border-style: solid;
+  border-color: var(--gray);
+  margin-top: 2px;
+  margin-right: 2px;
+  margin-bottom: 2px;
+  margin-left: 2px;
+  cursor: pointer;
+}
+
+.mini_product_image.active {
+  border-style: solid;
+  border-color: rgb(255,255,255);
+}
+
+.mini_product_image:hover {
+  background: rgba(64,64,64,0.4);
+}
+
+/* Content Style for cards when white */
+
+.big_product_image.card-color-white {
+  background: #ffffff;
+  border-radius: 5px;
+}
+
+.mini_product_image.active.card-color-white {
+  background: rgb(255,255,255);
+  border-width: 5.4px;
+  border-color: rgb(94,132,171);
+}
+
+.mini_product_image.card-color-white {
+  background: rgb(255,255,255);
+}
+
+.mini_product_image.card-color-white:hover {
+  background: rgb(255,255,255);
+  border-color: rgb(94,132,171);
+}
+
+/* Content Style for cards when black */
+
+.big_product_image.card-color-black {
+  background: black;
+  border-radius: 5px;
+}
+
+.mini_product_image.active.card-color-black {
+  background: black;
+  border-width: 5.4px;
+  border-color: white;
+}
+
+.mini_product_image.card-color-black {
+  background: black;
+}
+
+.mini_product_image.card-color-black:hover {
+  background: black;
+  border-color: white;
+}
+
+/* Content Style for cards when Gray */
+
+.big_product_image.card-color-gray {
+  background: rgb(139,139,139);
+  border-radius: 5px;
+}
+
+.mini_product_image.active.card-color-gray {
+  background: rgb(139,139,139);
+  border-width: 5.4px;
+  border-color: white;
+}
+
+.mini_product_image.card-color-gray {
+  background: rgb(139,139,139);
+}
+
+.mini_product_image.card-color-gray:hover {
+  background: rgb(139,139,139);
+  border-color: white;
 }
 

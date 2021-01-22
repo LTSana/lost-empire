@@ -1,0 +1,19 @@
+<form class="{% if messages %}{% for message in messages %}{% if 'form_forgot' in message.extra_tags %}{% else %}d-none{% endif %}{% endfor %}{% else %}d-none{% endif %} form-style" data-aos="zoom-in-down" data-aos-duration="500" data-aos-once="true" id="forgotpwd_form" action="#forgotpwd" method="post">{% csrf_token %}
+	<div class="form-row">
+		<div class="col hero_1_col_img">
+			<h1></h1>
+		</div>
+	</div>
+	{% if messages %}
+		{% for message in messages %}
+			{% if message.tags == "form-forgot" %}
+				{% include 'lost-empire/site_templates/modules/alert/alert.html' %}
+			{% endif %}
+		{% endfor %}
+	{% endif %}
+	<h6 class="text-warning">*This function does not work.</h6>
+	<div class="form-group"><input class="form-control form_input_fields" type="text" name="email" placeholder="Enter your E-mail" required=""></div>
+	<div class="form-group d-flex flex-column justify-content-center align-items-start align-content-center"><input class="form-control" type="hidden" id="recaptcha-2" name="g-recaptcha-response"><input class="form-control" type="hidden" id="site_key-2" value="{{site_key}}">
+		<p class="recaptcha-text-terms">This site is protected by reCAPTCHA and the Google&nbsp;<a href="https://policies.google.com/privacy">Privacy Policy</a>&nbsp;and&nbsp;<a href="https://policies.google.com/terms">Terms of Service</a>&nbsp;Apply<br></p><button class="btn btn-primary signin_btn" type="submit">SUBMIT</button><span id="signin_toggle-2" class="form_links"><strong>Remembered your password? Sign-in Here</strong></span>
+	</div>
+</form>

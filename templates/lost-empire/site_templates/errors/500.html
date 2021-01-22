@@ -1,60 +1,34 @@
 <!DOCTYPE html>
 <html>
-
+{% load static %}
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Lost Empire</title>
-    <meta name="twitter:description" content="LOST EMPIRE
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae lobortis quam. Donec quis augue viverra, hendrerit felis ut, sagittis purus. Nam sodales auctor dictum. Integer eu justo ultricies, tincidunt leo egestas, aliquet nunc. Nullam viverra a dolor vitae euismod. Vivamus lobortis sem molestie mi pharetra, consequat tincidunt lacus varius. Suspendisse potenti. Nullam luctus ac nisi sit amet lacinia. Aliquam non elit ut dui bibendum cursus vitae non elit. Vivamus quam dui, vulputate ut blandit id, lacinia quis risus. Cras tempus at lorem sit amet condimentum. Pellentesque sed dui eros. Fusce accumsan finibus tortor, sit amet gravida ante semper non.">
-    <meta property="og:image" content="../assets/img/favicons/512.png?h=7f2e7dbb74c9169d8c7f9d23d0aea51d">
-    <meta name="twitter:title" content="Lost Empire">
-    <meta name="description" content="LOST EMPIRE
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae lobortis quam. Donec quis augue viverra, hendrerit felis ut, sagittis purus. Nam sodales auctor dictum. Integer eu justo ultricies, tincidunt leo egestas, aliquet nunc. Nullam viverra a dolor vitae euismod. Vivamus lobortis sem molestie mi pharetra, consequat tincidunt lacus varius. Suspendisse potenti. Nullam luctus ac nisi sit amet lacinia. Aliquam non elit ut dui bibendum cursus vitae non elit. Vivamus quam dui, vulputate ut blandit id, lacinia quis risus. Cras tempus at lorem sit amet condimentum. Pellentesque sed dui eros. Fusce accumsan finibus tortor, sit amet gravida ante semper non.">
-    <meta name="twitter:image" content="../assets/img/logo/logo0.png?h=0aa5eb9a24c8d45211a2ce230a838430">
-    <link rel="icon" type="image/png" sizes="16x16" href="../assets/img/favicons/16.png?h=47048e0906762a9970a26e027e41afe6">
-    <link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicons/32.png?h=63603e8842df123042e086cc71b79bc6">
-    <link rel="icon" type="image/png" sizes="180x180" href="../assets/img/favicons/180.png?h=5bf18982e39ef15283ec3d93b5b36c3d">
-    <link rel="icon" type="image/png" sizes="192x192" href="../assets/img/favicons/192.png?h=5bf18982e39ef15283ec3d93b5b36c3d">
-    <link rel="icon" type="image/png" sizes="512x512" href="../assets/img/favicons/512.png?h=7f2e7dbb74c9169d8c7f9d23d0aea51d">
+    {% with page_title="ERROR 500" %}
+    <!-- Meta module -->
+    {% include 'lost-empire/site_templates/modules/HEAD_META/meta.html' %}
+    {% endwith %}
+    <!-- Icon module -->
+    {% include 'lost-empire/site_templates/modules/HEAD_ICON/icon.html' %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Barlow">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oxygen">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tomorrow">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-    <link rel="stylesheet" href="../assets/fonts/fontawesome5-overrides.min.css?h=9db842b3dc3336737559eb4abc0f1b3d">
-    <link rel="stylesheet" href="../assets/css/content_style.css?h=9354df1c2ae53990499e1aa41f8eb141">
-    <link rel="stylesheet" href="../assets/css/error/error.css?h=498a1949cdcb746b4bc4eb90e9de0d19">
-    <link rel="stylesheet" href="../assets/css/Footer-Dark.css?h=d44281ab81a24c48d198ae6022b2dd1a">
+    <link rel="stylesheet" href="{% static 'lost-empire/assets/fonts/fontawesome5-overrides.min.css?h=9db842b3dc3336737559eb4abc0f1b3d' %}">
+    <link rel="stylesheet" href="{% static 'lost-empire/assets/css/content_style.css?h=6562ca45ebba28f2a7c781760ef2d5b4' %}">
+    <link rel="stylesheet" href="{% static 'lost-empire/assets/css/error/error.css?h=498a1949cdcb746b4bc4eb90e9de0d19' %}">
+    <link rel="stylesheet" href="{% static 'lost-empire/assets/css/Footer-Dark.css?h=d44281ab81a24c48d198ae6022b2dd1a' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <link rel="stylesheet" href="https://unpkg.com/@bootstrapstudio/bootstrap-better-nav/dist/bootstrap-better-nav.min.css">
-    <link rel="stylesheet" href="../assets/css/Navigation-with-Search.css?h=10186aa1179248eadfffbeb446740fec">
-    <link rel="stylesheet" href="../assets/css/styles.css?h=fd2006ac10d0cd1d9ad63a90b9f7b2ec">
+    <link rel="stylesheet" href="{% static 'lost-empire/assets/css/Navigation-with-Search.css?h=10186aa1179248eadfffbeb446740fec' %}">
+    <link rel="stylesheet" href="{% static 'lost-empire/assets/css/styles.css?h=d70065106814f9781a755c254691f8c2' %}">
 </head>
 
 <body>
     <div id="main-div">
         <section id="hero_0">
-            <nav class="navbar navbar-light navbar-expand-md navigation-clean-search">
-                <div class="container-fluid"><a class="navbar-brand" href="/"></a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-                    <div class="collapse navbar-collapse" id="navcol-1">
-                        <ul class="nav navbar-nav">
-                            <li class="nav-item"><a class="nav-link" href="/index.html"><i class="fas fa-home"></i>&nbsp;HOME</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/shop.html"><i class="fas fa-shopping-bag"></i>&nbsp;SHOP</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/about.html"><i class="fas fa-info-circle"></i>&nbsp;ABOUT</a></li>
-                        </ul>
-                        <form class="form-inline mr-auto" target="_self" action="/shop.html">
-                            <div class="form-group"><label for="search-field"><i class="fa fa-search"></i></label><input class="form-control search-field" type="search" id="search-field" name="search"></div>
-                        </form>
-                        <ul class="nav navbar-nav d-flex flex-column ml-auto flex-md-row justify-content-md-end flex-lg-row justify-content-lg-end flex-xl-row justify-content-xl-end">
-                            <li class="nav-item"><a class="nav-link" href="/account/account.html"><i class="fas fa-user-circle"></i>&nbsp;ACCOUNT</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/cart.html"><i class="fas fa-shopping-cart"></i>&nbsp;CART&nbsp;<span id="navbar_cart_count">0</span></a></li>
-                            <li class="nav-item"><a class="nav-link" href="/signin.html"><i class="fas fa-sign-in-alt"></i>&nbsp;SIGN IN</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+            <!-- Navbar module -->
+            {% include 'lost-empire/site_templates/modules/navbar/normal/navbar.html' %}
         </section>
         <section class="d-flex flex-column justify-content-center align-items-center align-content-center" id="hero_1">
             <div class="container">
@@ -67,35 +41,14 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae lobortis quam
         </section>
     </div>
     <div class="footer-dark">
-        <footer>
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 offset-sm-0 item">
-                        <h3>Rooms</h3>
-                        <ul>
-                            <li><a href="#">HOME</a></li>
-                            <li><a href="#">SHOP</a></li>
-                            <li><a href="#">ABOUT</a></li>
-                            <li><a href="#">ACCOUNT</a></li>
-                            <li><a href="#">CART</a></li>
-                            <li><a href="../signin.html">SIGN IN</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-6 item text">
-                        <h3>Lost Empire</h3>
-                        <p>Praesent sed lobortis mi. Suspendisse vel placerat ligula. Vivamus ac sem lacus. Ut vehicula rhoncus elementum. Etiam quis tristique lectus. Aliquam in arcu eget velit pulvinar dictum vel in justo.</p>
-                    </div>
-                    <div class="col item social"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-instagram"></i></a></div>
-                </div>
-                <p class="copyright">Lost Empire © 2020</p>
-            </div>
-        </footer>
+        <!-- Footer module -->
+        {% include 'lost-empire/site_templates/modules/footer/footer.html' %}
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.bundle.min.js"></script>
-    <script src="../assets/js/bs-init.js?h=2e4f94618d12c613ae5f1a99ad96090e"></script>
+    <script src="{% static 'lost-empire/assets/js/bs-init.js?h=2e4f94618d12c613ae5f1a99ad96090e' %}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script src="../assets/js/ghost.js?h=dce0087c819dc049669157b3a07c6cc1"></script>
+    <script src="{% static 'lost-empire/assets/js/ghost.js?h=4e8811a537424a39e02a3ff5ae6220f2' %}"></script>
     <script src="https://unpkg.com/@bootstrapstudio/bootstrap-better-nav/dist/bootstrap-better-nav.min.js"></script>
 </body>
 

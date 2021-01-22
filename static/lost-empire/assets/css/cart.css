@@ -114,6 +114,10 @@
   box-shadow: none;
 }
 
+#coupon_apply_btn {
+  box-shadow: none;
+}
+
 body {
   background: url("../../assets/img/backgrounds/signin_bk.png?h=0dbdcd19f30ee32964f751a20d1e8bea") center / cover no-repeat;
   background-attachment: fixed;
@@ -126,5 +130,70 @@ body {
 
 .cart_product_link, .cart_product_link:hover {
   text-decoration: none;
+}
+
+#paypal-button-container {
+  margin-top: 15px;
+  pointer-events: none;
+  opacity: 0.50;
+}
+
+#shipping_country {
+  box-shadow: none;
+  border-top-style: none;
+  border-right-style: none;
+  border-left-style: none;
+  border-radius: 0px;
+  cursor: pointer;
+}
+
+.coupon-col {
+  margin-bottom: 15px;
+}
+
+#coupon_input:focus #coupon_input:active {
+  border-top: 0;
+  border-right: 0;
+  border-left: 0;
+  border-radius: 0;
+}
+
+/* Cart Product Row */
+
+.cart-row-holders {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+/* Cart product image card colors */
+
+.cart_product_image.card-color-white {
+  background: #ffffff;
+  border-radius: 5px;
+}
+
+.cart_product_image.card-color-white:hover {
+  background: rgb(227,227,227);
+  border-radius: 5px;
+}
+
+.cart_product_image.card-color-black {
+  background: rgb(20,20,20);
+  border-radius: 5px;
+}
+
+.cart_product_image.card-color-black:hover {
+  background: rgb(25,25,25);
+  border-radius: 5px;
+}
+
+.cart_product_image.card-color-gray {
+  background: gray;
+  border-radius: 5px;
+}
+
+.cart_product_image.card-color-gray:hover {
+  background: rgb(139,139,139);
+  border-radius: 5px;
 }
 

@@ -1,0 +1,28 @@
+<footer>
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 offset-sm-0 item">
+				<h3>Rooms</h3>
+				<ul>
+					<li><a href="/">HOME</a></li>
+					<li><a href="/shop">SHOP</a></li>
+					<li><a href="/about">ABOUT</a></li>
+					{% if user.is_authenticated %}
+					<li><a href="/account">ACCOUNT</a></li>
+					{% endif %}
+					<li><a href="/cart">CART</a></li>
+					{% if user.is_authenticated %}
+					<li><a href="/signout">SIGN OUT</a></li>
+					{% else %}
+					<li><a href="/signin">SIGN IN</a></li>
+					{% endif %}
+				</ul>
+			</div>
+			<div class="col-md-6 item text">
+				<h3>Lost Empire</h3>
+				<p>Praesent sed lobortis mi. Suspendisse vel placerat ligula. Vivamus ac sem lacus. Ut vehicula rhoncus elementum. Etiam quis tristique lectus. Aliquam in arcu eget velit pulvinar dictum vel in justo.</p>
+			</div>
+		</div>
+		<p class="copyright">Lost Empire © 2020 | Developed by&nbsp;<a href="https://ltsana.github.io/" target="_blank" rel="noopener">LT.Sana</a></p>
+	</div>
+</footer>

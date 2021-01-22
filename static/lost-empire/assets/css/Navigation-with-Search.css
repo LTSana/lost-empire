@@ -36,11 +36,12 @@
 }
 
 .navigation-clean-search .navbar-toggler:hover, .navigation-clean-search .navbar-toggler:focus {
-  background: none;
+  background: rgb(222,222,222);
 }
 
 .navigation-clean-search .navbar-toggler {
   color: #888;
+  background: #ffffff;
 }
 
 .navigation-clean-search .navbar-collapse, .navigation-clean-search .form-inline {

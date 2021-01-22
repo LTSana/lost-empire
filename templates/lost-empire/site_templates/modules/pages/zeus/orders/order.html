@@ -1,0 +1,18 @@
+{% for order in order_data %}
+<div class="col-md-6 col-lg-5 col-xl-4 order_col">
+	{% if order.order_status == "WAITING" %}
+	<h4 class="text-center text-warning"><strong>WAITING</strong></h4>
+	{% elif order.order_status == "COMPLETED" %}
+	<h4 class="text-center text-success"><strong>COMPLETED</strong></h4>
+	{% elif order.order_status == "DENIED" %}
+	<h4 class="text-center text-danger"><strong>DENIED</strong></h4>
+	{% endif %}
+	<h5><strong>ID:</strong> {{order.hash_key}}</h5>
+	<p class="text-break">
+		<strong>Number of Product{% if order.cart_data|length > 1 %}s{% endif %}:</strong> {{order.cart_data | length}}<br>
+		<strong>E-mail:</strong> xxxx@xxxxx.xxx<br>
+		<strong>Name:</strong> xxxxx xxxxx<br>
+		<strong>Date:</strong> {{order.date_made}}</p>
+		<a class="btn btn-primary" role="button" href="/zeus/orders/order_details?order={{order.hash_key}}">VIEW</a>
+</div>
+{% endfor %}

@@ -1,0 +1,36 @@
+<div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-2 filter_holder_col">
+	<h3 class="text-light"><strong>FILTER BY</strong></h3>
+	<div class="row d-flex flex-column" id="filter_by_size">
+		<div class="col">
+			<h5 class="text-light d-flex flex-row justify-content-between align-items-center align-content-center toggle_filter_size toggle_filter_option" id="toggle_filter_size"><strong>SIZE (</strong><span id="filter_size_counter"><strong>0</strong></span><strong>)&nbsp;</strong><i class="far fa-minus-square" id="toggle_filter_size_icon"></i></h5>
+		</div>
+		<div class="col" id="filter_size_option_list">
+			<!-- Filter list for Size -->
+			{% for available_size in available_size_list %}
+			<div class="custom-control disabled text-light custom-checkbox"><input class="custom-control-input checkbox-sizes" type="checkbox" id="formSize-{{ forloop.counter }}" data-size="{{available_size}}"><label class="custom-control-label" for="formSize-{{ forloop.counter }}">{{available_size}}</label></div>
+			{% endfor %}
+		</div>
+	</div>
+	<div class="row d-flex flex-column" id="filter_by_category">
+		<div class="col">
+			<h5 class="text-light d-flex flex-row justify-content-between align-items-center align-content-center toggle_filter_size toggle_filter_option" id="toggle_filter_category"><strong>CATEGORY (</strong><span id="filter_category_counter"><strong>0</strong></span><strong>)</strong><i class="far fa-minus-square" id="toggle_filter_category_icon"></i></h5>
+		</div>
+		<div class="col" id="filter_category_option_list">
+			<!-- Filter list for Category -->
+			{% for category in available_category_list %}
+			<div class="custom-control disabled text-light custom-checkbox"><input class="custom-control-input checkbox-category" type="checkbox" id="formCategory-{{ forloop.counter }}" data-category="{{category}}"><label class="custom-control-label" for="formCategory-{{ forloop.counter }}">{{category}}</label></div>
+			{% endfor %}
+		</div>
+	</div>
+	<div class="row d-flex flex-column" id="filter_by_brand">
+		<div class="col">
+			<h5 class="text-light d-flex flex-row justify-content-between align-items-center align-content-center toggle_filter_size toggle_filter_option" id="toggle_filter_brand"><strong>BRANDS (</strong><span id="filter_brand_counter"><strong>0</strong></span><strong>)</strong><i class="far fa-minus-square" id="toggle_filter_brand_icon"></i></h5>
+		</div>
+		<div class="col" id="filter_brand_option_list">
+			<!-- Filter list for Brand -->
+			{% for brand in available_brand_list %}
+			<div class="custom-control disabled text-light custom-checkbox"><input class="custom-control-input checkbox-brand" type="checkbox" id="formBrand-{{ forloop.counter }}" data-brand="{{brand}}"><label class="custom-control-label" for="formBrand-{{ forloop.counter }}">{{brand}}</label></div>
+			{% endfor %}
+		</div>
+	</div>
+</div>

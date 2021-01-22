@@ -14,10 +14,10 @@ document.addEventListener("DOMContentLoaded", () => {
 		document.querySelector("#toggle_filter_size_icon").classList.toggle("fa-plus-square", true)
 		document.querySelector("#toggle_filter_size_icon").classList.toggle("fa-minus-square", false)
 
-		// Filter Type
-		document.querySelector("#filter_type_option_list").classList.toggle("d-none", true)
-		document.querySelector("#toggle_filter_type_icon").classList.toggle("fa-plus-square", true)
-		document.querySelector("#toggle_filter_type_icon").classList.toggle("fa-minus-square", false)
+		// Filter category
+		document.querySelector("#filter_category_option_list").classList.toggle("d-none", true)
+		document.querySelector("#toggle_filter_category_icon").classList.toggle("fa-plus-square", true)
+		document.querySelector("#toggle_filter_category_icon").classList.toggle("fa-minus-square", false)
 
 		// Filter Brands
 		document.querySelector("#filter_brand_option_list").classList.toggle("d-none", true)
@@ -38,16 +38,16 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	}
 
-	// Filter Type
-	document.querySelector("#toggle_filter_type").onclick = () => {
-		if (document.querySelector("#filter_type_option_list").classList.toggle("d-none")) {
-			document.querySelector("#filter_type_option_list").classList.toggle("d-none", true)
-			document.querySelector("#toggle_filter_type_icon").classList.toggle("fa-plus-square", true)
-			document.querySelector("#toggle_filter_type_icon").classList.toggle("fa-minus-square", false)
+	// Filter category
+	document.querySelector("#toggle_filter_category").onclick = () => {
+		if (document.querySelector("#filter_category_option_list").classList.toggle("d-none")) {
+			document.querySelector("#filter_category_option_list").classList.toggle("d-none", true)
+			document.querySelector("#toggle_filter_category_icon").classList.toggle("fa-plus-square", true)
+			document.querySelector("#toggle_filter_category_icon").classList.toggle("fa-minus-square", false)
 		} else {
-			document.querySelector("#filter_type_option_list").classList.toggle("d-none", false)
-			document.querySelector("#toggle_filter_type_icon").classList.toggle("fa-plus-square", false)
-			document.querySelector("#toggle_filter_type_icon").classList.toggle("fa-minus-square", true)
+			document.querySelector("#filter_category_option_list").classList.toggle("d-none", false)
+			document.querySelector("#toggle_filter_category_icon").classList.toggle("fa-plus-square", false)
+			document.querySelector("#toggle_filter_category_icon").classList.toggle("fa-minus-square", true)
 		}
 	}
 
@@ -83,7 +83,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
 					// Convert the list to a string for the URL
 					URLParam.set(`${filter_option}`, JSON.stringify(_list))
+					URLParam.set(`page`, 0) // Send the user back to page 0
 					URLParam.toString() // Make it URL friendly
+
+					// Disable all checkboxes
+					document.querySelectorAll(".custom-control-input").forEach(button => {
+						button.style.opacity = 0.5
+						button.style.pointerEvent = "none"
+						button.disabled = true
+					})
 
 					// Redirect to those parameters given
 					location.href = `?${URLParam}`
@@ -96,7 +104,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
 					// Convert the list to a string for the URL
 					URLParam.set(`${filter_option}`, JSON.stringify(_list))
+					URLParam.set(`page`, 0) // Send the user back to page 0
 					URLParam.toString() // Make it URL friendly
+					
+					// Disable all checkboxes
+					document.querySelectorAll(".custom-control-input").forEach(button => {
+						button.style.opacity = 0.5
+						button.style.pointerEvent = "none"
+						button.disabled = true
+					})
 
 					// Redirect to those parameters given
 					location.href = `?${URLParam}`
@@ -122,7 +138,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
 				// Convert the list to a string for the URL
 				URLParam.set(`${filter_option}`, JSON.stringify(_list))
+				URLParam.set(`page`, 0) // Send the user back to page 0
 				URLParam.toString() // Make it URL friendly
+
+				// Disable all checkboxes
+				document.querySelectorAll(".custom-control-input").forEach(button => {
+					button.style.opacity = 0.5
+					button.style.pointerEvent = "none"
+					button.disabled = true
+				})
 
 				// Redirect to those parameters given
 				location.href = `?${URLParam}`
@@ -166,13 +190,32 @@ document.addEventListener("DOMContentLoaded", () => {
 		checkbox_system(checkbox, "size")
 	})
 
-	document.querySelectorAll(".checkbox-type").forEach(checkbox => {
+	document.querySelectorAll(".checkbox-category").forEach(checkbox => {
 		// Checkbox System for processing all checkboxes
-		checkbox_system(checkbox, "type")
+		checkbox_system(checkbox, "category")
 	})
 
 	document.querySelectorAll(".checkbox-brand").forEach(checkbox => {
 		// Checkbox System for processing all checkboxes
 		checkbox_system(checkbox, "brand")
+	})
+
+	// For Pagination
+	document.querySelectorAll(".pagination > p").forEach(page => {
+		page.onclick = () => {
+			// Get the URL's parameters
+			const queryString = window.location.search
+			const URLParam = new URLSearchParams(queryString)
+
+			// Get the page number to go to
+			let page_n = page.dataset.page
+
+			// Convert the list to a string for the URL
+			URLParam.set(`page`, page_n)
+			URLParam.toString() // Make it URL friendly
+
+			// Redirect to those parameters given
+			location.href = `?${URLParam}`
+		}
 	})
 })

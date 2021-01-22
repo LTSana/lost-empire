@@ -3,11 +3,63 @@
   margin-right: 10px;
   margin-left: 10px;
   margin-bottom: 10px;
+  font-family: Barlow, sans-serif;
 }
 
 .div-scroll-order-items {
   overflow-y: scroll;
   height: 100vh;
   overflow-x: hidden;
+}
+
+/* Content Style for when card color is Black */
+
+.col-ordered-item.card-color-black {
+  background-color: rgb(20,20,20);
+  color: white;
+  margin-left: 5px;
+}
+
+.col-ordered-item.card-color-black:hover {
+  background: rgb(25,25,25);
+}
+
+.card-color-black > a > h6 {
+  color: white;
+}
+
+/* Content Style for when card color is White */
+
+.col-ordered-item.card-color-white {
+  background-color: white;
+  margin-left: 5px;
+}
+
+.col-ordered-item.card-color-white:hover {
+  background: rgb(227,227,227);
+}
+
+.card-color-white > a > h6 {
+  color: black;
+}
+
+.card-color-white > a > h6 > span {
+  color: gray;
+}
+
+/* Content Style for when card color is Gray */
+
+.col-ordered-item.card-color-gray {
+  background-color: gray;
+  color: white;
+  margin-left: 5px;
+}
+
+.col-ordered-item.card-color-gray:hover {
+  background: rgb(139,139,139);
+}
+
+.card-color-gray > a > h6 {
+  color: white;
 }
 

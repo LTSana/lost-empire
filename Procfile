@@ -1,0 +1,1 @@
+web gunicorn LostEmpire.wsgi --log-file -

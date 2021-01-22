@@ -1,0 +1,17 @@
+<div class="row">
+	<div class="col d-flex flex-row justify-content-center flex-wrap pagination">
+		{% if page_numbers.current_page >= 1 %}
+		<p data-page="{{page_numbers.previous_page}}"><i class="fas fa-chevron-circle-left"></i></p>
+		{% endif %}
+		{% for i in page_numbers.pages_backwards %}
+		<p data-page="{{i}}">{{i}}</p>
+		{% endfor %}
+		<p class="active" data-page="{{page_numbers.current_page}}">{{page_numbers.current_page}}</p>
+		{% for i in page_numbers.pages_forwards %}
+		<p data-page="{{i}}">{{i}}</p>
+		{% endfor %}
+		{% if page_numbers.next_page %}
+		<p data-page="{{page_numbers.next_page}}"><i class="fas fa-chevron-circle-right"></i></p>
+		{% endif %}
+	</div>
+</div>

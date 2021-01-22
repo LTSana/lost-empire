@@ -61,11 +61,27 @@ body {
   color: rgb(191,191,191);
 }
 
+.grecaptcha-badge {
+  visibility: hidden;
+}
+
 /* Alert Styling */
+
+.alert > .close {
+  color: white;
+  padding-bottom: 2px;
+  border-radius: 0px;
+  background-color: black;
+}
 
 .alert {
   padding-top: 0px;
   padding-bottom: 2px;
+  border-radius: 0px;
+  background-color: black;
+  /*border-color: white;*/
+  color: white;
+  font-size: 12px;
 }
 
 /* Input Field Styling */
@@ -87,5 +103,36 @@ body {
   border-radius: 0px;
   color: white;
   box-shadow: none;
+}
+
+/* Global Alert Style */
+
+.global-alert {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding-top: 30px;
+  color: rgb(190,190,190);
+  padding-bottom: 30px;
+  overflow-y: scroll;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  overflow-x: hidden;
+}
+
+.global-alert-btn {
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.global-alert-col {
+  background: #000000;
+  border-radius: 9px;
+  border-style: solid;
+  padding-bottom: 10px;
+}
+
+.global-alert-p {
+  font-family: 'Barlow';
 }
 

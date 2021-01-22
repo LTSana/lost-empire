@@ -1,0 +1,31 @@
+<form class="{% if messages %}{% for message in messages %}{% if 'form_signup' in message.extra_tags %}{% else %}d-none{% endif %}{% endfor %}{% else %}d-none{% endif %} form-style" data-aos="zoom-in-down" data-aos-duration="500" data-aos-once="true" id="signup_form" action="/signup" method="post">{% csrf_token %}
+	<div class="form-row">
+		<div class="col hero_1_col_img">
+			<h1></h1>
+		</div>
+	</div>
+	{% if messages %}
+		{% for message in messages %}
+			{% if "form_signup" in message.extra_tags %}
+				{% include 'lost-empire/site_templates/modules/alert/alert.html' %}
+			{% endif %}
+		{% endfor %}
+	{% endif %}
+	<div class="form-group">
+		<input class="form-control form_input_fields" type="text" name="first_name" placeholder="First Name" required="" minlength="1" maxlength="1600">
+		<input class="form-control form_input_fields" type="text" name="last_name" placeholder="Last Name" required="" minlength="1" maxlength="1600">
+		<label class="text-light label-email" for="email_field">E-Mail Status:&nbsp;<span class="text-success email_status_check">USABLE</span>&nbsp;</label>
+		<input class="form-control form_input_fields" type="email" id="email_field" name="email" placeholder="E-mail" required="">
+	</div>
+	<div class="form-group"><label class="text-light" for="input_fields_pwd">Password must be between 8 - 128.</label>
+		<div class="d-flex flex-row align-items-center">
+			<input class="form-control form_input_fields" type="password" id="input_fields_pwd" name="pwd" placeholder="Password" required="" minlength="8" maxlength="128"><i class="far fa-eye-slash pwd_visible_toggle" id="pwd_visible_toggle"></i>
+		</div>
+		<div class="d-flex flex-row align-items-center">
+			<input class="form-control form_input_fields" type="password" id="input_fields_cpwd" name="cpwd" placeholder="Confirm Password" required="" minlength="8" maxlength="128"><i class="far fa-eye-slash pwd_visible_toggle" id="cpwd_visible_toggle"></i>
+		</div>
+	</div>
+	<div class="form-group d-flex flex-column justify-content-center align-items-start align-content-center"><input class="form-control" type="hidden" id="recaptcha-1" name="g-recaptcha-response"><input class="form-control" type="hidden" id="site_key-1" value="{{site_key}}">
+		<p class="recaptcha-text-terms">This site is protected by reCAPTCHA and the Google&nbsp;<a href="https://policies.google.com/privacy">Privacy Policy</a>&nbsp;and&nbsp;<a href="https://policies.google.com/terms">Terms of Service</a>&nbsp;Apply<br></p><button class="btn btn-primary signin_btn" type="submit">SIGN UP</button><span id="signin_toggle" class="form_links"><strong>Have an account? Sign-in Here</strong></span>
+	</div>
+</form>

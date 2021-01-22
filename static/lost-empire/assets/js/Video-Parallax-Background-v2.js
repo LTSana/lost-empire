@@ -75,7 +75,7 @@ $(document).ready(function(){
             } else {
                 shift = -rect.top+'px';
             }
-            console.log(shift);
+            //console.log(shift);
 			node.style.transform = 'translate3d(0, '+(shift)+', 0)';
 		}
 

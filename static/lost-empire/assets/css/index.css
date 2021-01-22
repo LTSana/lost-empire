@@ -5,11 +5,24 @@
   margin-bottom: 15px;
 }
 
-.hero_2_heading0 {
-  font-weight: bold;
-  line-height: 0px;
-  margin-bottom: 45px;
-  margin-top: 35px;
+@media (min-width: 576px) {
+  .hero_2_heading0 {
+    font-weight: bold;
+    line-height: 0px;
+    margin-bottom: 45px;
+    margin-top: 35px;
+    font-size: 37px;
+  }
+}
+
+@media (max-width: 575px) {
+  .hero_2_heading0 {
+    font-weight: bold;
+    line-height: 30px;
+    margin-bottom: 45px;
+    margin-top: 35px;
+    font-size: 37px;
+  }
 }
 
 /* hero_3 */
@@ -22,6 +35,14 @@
 
 .hero_3_row_2 {
   padding-top: 15px;
+}
+
+.hero_3_heading0 {
+  line-height: 0px;
+  margin-bottom: 45px;
+  margin-top: 35px;
+  font-size: 37px;
+  font-weight: bold;
 }
 
 /* Hero 4 */

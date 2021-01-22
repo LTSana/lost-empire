@@ -1,0 +1,20 @@
+<form data-aos="zoom-in-down" data-aos-duration="500" data-aos-once="true" id="signin_form" class="{% if messages %}{% for message in messages %}{% if 'form_signup' in message.extra_tags or 'form_forgot' in message.extra_tags %}d-none{% endif %}{% endfor %}{% endif %} form-style" action="/signin" method="post">{% csrf_token %}
+	<div class="form-row">
+		<div class="col hero_1_col_img">
+			<h1></h1>
+		</div>
+	</div>
+	{% if messages %}
+		{% for message in messages %}
+			{% if 'form_signin' in message.extra_tags %}
+				{% include 'lost-empire/site_templates/modules/alert/alert.html' %}
+			{% endif %}
+		{% endfor %}
+	{% endif %}
+	<div class="form-group"><input class="form-control form_input_fields" type="text" name="email" placeholder="E-mail" required=""></div>
+	<div class="form-group"><input class="form-control form_input_fields" type="password" name="pwd" placeholder="Password" required="" minlength="8" maxlength="128"></div>
+	<div class="form-group d-flex flex-column justify-content-center align-items-start align-content-center"><input class="form-control" type="hidden" id="recaptcha" name="g-recaptcha-response"><input class="form-control" type="hidden" id="site_key" value="{{site_key}}">
+		<p class="recaptcha-text-terms">This site is protected by reCAPTCHA and the Google&nbsp;<a href="https://policies.google.com/privacy">Privacy Policy</a>&nbsp;and&nbsp;<a href="https://policies.google.com/terms">Terms of Service</a>&nbsp;Apply<br></p>
+		<button class="btn btn-primary signin_btn" type="submit">SIGN IN</button><span id="signup_toggle" class="form_links"><strong>Don't have account?</strong></span><span id="forgot_toggle" class="form_links"><strong>Forgot your password?</strong></span>
+	</div>
+</form>?
