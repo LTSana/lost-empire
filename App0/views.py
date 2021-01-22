@@ -96,7 +96,7 @@ def index(request):
 						category_list.append({
 							"category": a,
 							"product_id": product.hash_key,
-							"image_0": (product.image_0).replace("&export=download", ""),
+							"image_0": (product.image_0.url).replace("&export=download", "") if product.image_0.url else None,
 							"card_color": product.card_color
 						})
 						tmp_list.append(a)
@@ -799,8 +799,8 @@ def product(request):
 				html_content = {
 					"product": {
 					"hash_key": product.hash_key,
-					"image_0": (product.image_0).replace("&export=download", ""),
-					"image_1": (product.image_1).replace("&export=download", ""),
+					"image_0": product.image_0,
+					"image_1": product.image_1,
 					"available": product.available,
 					"pk": product.pk,
 					"name": product.name, 
@@ -851,8 +851,8 @@ def api_handler(request):
 						product = Products.objects.get(hash_key=form.cleaned_data["q"])
 						return JsonResponse({"STATUS": True, "product": {
 																	"hash_key": product.hash_key,
-																	"image_0": (product.image_0.url).replace("&export=download", ""),
-																	"image_1": (product.image_1.url).replace("&export=download", "") if product.image_1 else None,
+																	"image_0": (product.image_0.url).replace("&export=download", "") if product.image_0.url else None,
+																	"image_1": (product.image_1.url).replace("&export=download", "") if product.image_1.url else None,
 																	"available": product.available,
 																	"pk": product.pk,
 																	"name": product.name, 
@@ -948,7 +948,7 @@ def ZeusOrderDetails(request):
 				for a in range(len(order_data.cart_data)):
 					try:
 						product = Products.objects.get(hash_key=order_data.cart_data[a]["product_id"])
-						order_data.cart_data[a]["image_0"] = (product.image_0.url).replace("&export=download", "")
+						order_data.cart_data[a]["image_0"] = (product.image_0.url).replace("&export=download", "") if product.image_0.url else None
 						order_data.cart_data[a]["price"] = product.price
 						order_data.cart_data[a]["discount_per"] = order_data.discount_per
 						order_data.cart_data[a]["d_price"] = "{:,.2f}".format((product.price * (100 - order_data.discount_per["user_discount"]) / 100) * (100 - order_data.discount_per["coupon_discount"]) / 100 if order_data.discount_per else product.price * (100 - order_data.discount_per["coupon_discount"]) / 100)

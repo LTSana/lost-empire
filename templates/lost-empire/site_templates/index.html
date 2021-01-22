@@ -51,7 +51,7 @@
                     {% for category in categories %}
                     <div class="col-6 col-sm-5 col-md-3 col-lg-3 col-xl-3 d-flex flex-column justify-content-center align-items-center align-content-center content_style_cat_col card-color-{{category.card_color}}">
                         <a class="d-flex flex-column justify-content-center align-items-center align-content-center content_style_cat_link" href='/shop?category=["{{category.category}}"]&page=0'>
-                            <img class="content_style_cat_img" src="{{category.image_0.url|cut:'&export=download'}}" loading="auto">
+                            <img class="content_style_cat_img" src="{{category.image_0}}" loading="auto">
                             {% if category.card_color == "white" %}
                             <h3 class="text-center text-dark content_style_cat_heading">{{category.category}}</h3>
                             {% elif category.card_color == "black" %}
