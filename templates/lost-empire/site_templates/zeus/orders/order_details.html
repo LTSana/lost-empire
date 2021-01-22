@@ -45,7 +45,7 @@
                                         <p>
                                             <strong>Product ID:</strong>&nbsp;<a href="/product?q={{cart.product_id}}"><strong>{{cart.product_id}}</strong></a><br>
                                             <strong>Product Price:</strong>&nbsp;<i class="fas fa-euro-sign"></i>{{cart.price}}<br>
-                                            <strong>Discount Per:</strong>&nbsp;{{cart.discount_per}} %<br>
+                                            <strong>Discount Per:</strong>&nbsp;(User - {{cart.discount_per.user_discount}}%) (Coupon - {{cart.discount_per.coupon_discount}}%)<br>
                                             <strong>Discount Price:</strong>&nbsp;<i class="fas fa-euro-sign"></i>{{cart.d_price}}<br>
                                             <strong>Quantity Ordered:</strong>&nbsp;{{cart.quantity}}<br>
                                             <strong>Size:</strong>&nbsp;{{cart.size}}<br>

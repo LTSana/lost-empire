@@ -499,7 +499,29 @@ def accountHistory(request):
 	""" Account History page """
 
 	if request.method == "GET":
-		return render(request, "lost-empire/site_templates/account/history.html")
+
+		# Get all the orders that the User is associated with
+		history_data = Orders.objects.all().filter(user_pk__contains=request.user.pk).order_by("-date_made")
+		
+		# Calculate all the totals for each order
+		for history in history_data:
+			history.total = "{:,.2f}".format(float(history.subtotal) + float(history.shipping_cost))
+			history.subtotal = "{:,.2f}".format(history.subtotal)
+
+			# Get the Price and Discount for the products
+			for cart in history.cart_data:
+				try:
+					product = Products.objects.get(hash_key=cart["product_id"])
+					cart["price"] = product.price
+					cart["discount_per"] = history.discount_per
+					cart["d_price"] = "{:,.2f}".format((product.price * (100 - history.discount_per["user_discount"]) / 100) * (100 - history.discount_per["coupon_discount"]) / 100 if history.discount_per else product.price * (100 - history.discount_per["coupon_discount"]) / 100)
+				except Products.DoesNotExist:
+					cart["price"] = "N/A"
+
+		html_content = {
+			"history_data": history_data,
+		}
+		return render(request, "lost-empire/site_templates/account/history.html", html_content)
 
 @login_required
 def accountSecurity(request):

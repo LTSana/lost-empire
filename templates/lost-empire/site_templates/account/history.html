@@ -40,19 +40,28 @@
                     <div class="col-md-9 col-lg-10 col-xl-10">
                         <h1 class="text-light">ACCOUNT HISTORY</h1>
                         <div class="row">
-                            <div class="col-xl-4 history-col">
-                                <h6>History ID: {{history.pk}}</h6>
-                                <h6>Subtotal: {{history.subtotal}}</h6>
-                                <h6>Shipping Cost: {{history.shipping}}</h6>
-                                <h6>Total: {{history.total}}</h6>
-                                <h6>Date Purchased: {{history.date}}</h6>
-                                <h6>Products ( {{history.products}} )</h6>
-                                <div class="history-col-scroll-div">
-                                    <p>Product ID:&nbsp;<a href="#">{{history.product.pk}}</a><br>Product Price: {{history.product.price}}<br>Quantity: {{history.product.quantity}}</p>
-                                    <p>Product ID:&nbsp;<a href="#">{{history.product.pk}}</a><br>Product Price: {{history.product.price}}<br>Quantity: {{history.product.quantity}}</p>
-                                    <p>Product ID:&nbsp;<a href="#">{{history.product.pk}}</a><br>Product Price: {{history.product.price}}<br>Quantity: {{history.product.quantity}}</p>
+                            {% for history in history_data %}
+                                <div class="col-xl-4 history-col">
+                                    <h6>History ID: {{history.hash_key}}</h6>
+                                    <h6>Subtotal: ‎€ {{history.subtotal}}</h6>
+                                    <h6>Shipping Cost: ‎€ {{history.shipping_cost}}</h6>
+                                    <h6>Total: ‎€ {{history.total}}</h6>
+                                    <h6>Date Purchased: {{history.date_made}}</h6>
+                                    <h6>Products ( {{history.cart_data|length}} )</h6>
+                                    <div class="history-col-scroll-div">
+                                        {% for cart in history.cart_data %}
+                                        <p>
+                                            Product ID:&nbsp;
+                                            <a href="/product?q={{cart.product_id}}">{{cart.product_id}}</a><br>
+                                            Product Price: ‎€ {{cart.d_price}}<br>
+                                            Product discount: (User - {{cart.discount_per.user_discount}}%) (Coupon: {{cart.discount_per.coupon_discount}}%)<br>
+                                            Product Old Price: ‎€ {{cart.price}}<br>
+                                            Quantity: {{cart.quantity}}
+                                        </p>
+                                        {% endfor %}
+                                    </div>
                                 </div>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
