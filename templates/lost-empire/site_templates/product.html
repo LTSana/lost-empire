@@ -41,13 +41,13 @@
                     <div class="col-sm-6 col-xl-5 offset-xl-0 d-flex flex-column flex-sm-column flex-md-row flex-lg-row flex-xl-row">
                         <div class="d-flex flex-row justify-content-center flex-sm-row flex-md-column justify-content-md-start flex-lg-column justify-content-lg-start flex-xl-column justify-content-xl-start">
                             {% if product.available %}
-                                <img class="mini_product_image active card-color-{{product.card_color}}" src="{{product.image_0.url}}" width="100px" data-side="front">
+                                <img class="mini_product_image active card-color-{{product.card_color}}" src="{{product.image_0.url|cut:'&export=download'}}" width="100px" data-side="front">
                                 {% if product.image_1 %}
-                                    <img class="mini_product_image card-color-{{product.card_color}}" src="{{product.image_1.url}}" width="100px" data-side="back">
+                                    <img class="mini_product_image card-color-{{product.card_color}}" src="{{product.image_1.url|cut:'&export=download'}}" width="100px" data-side="back">
                                 {% endif %}
                             {% endif %}
                         </div>
-                        <div><img class="img-fluid product_image big_product_image card-color-{{product.card_color}}" src="{{product.image_0.url}}" width="100%"></div>
+                        <div><img class="img-fluid product_image big_product_image card-color-{{product.card_color}}" src="{{product.image_0.url|cut:'&export=download'}}" width="100%"></div>
                     </div>
                     <div class="col-11 col-sm-6 col-md-6 col-lg-6 col-xl-{% if product.available %}5{% else %}12{% endif %}">
                         <h3 class="text-break text-light"><strong>{{product.name}}</strong></h3>

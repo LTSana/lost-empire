@@ -41,7 +41,7 @@
                             {% for cart in order_data.cart_data %}
                                 <div class="row d-flex flex-row">
                                     <div class="col col-ordered-item card-color-{{cart.card_color}}">
-                                        <img src="{{cart.image_0}}" width="100%">
+                                        <img src="{{cart.image_0|cut:'&export=download'}}" width="100%">
                                         <p>
                                             <strong>Product ID:</strong>&nbsp;<a href="/product?q={{cart.product_id}}"><strong>{{cart.product_id}}</strong></a><br>
                                             <strong>Product Price:</strong>&nbsp;<i class="fas fa-euro-sign"></i>{{cart.price}}<br>
