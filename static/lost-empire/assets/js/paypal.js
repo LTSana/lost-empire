@@ -49,7 +49,7 @@ for (let i = 0; i < cart_data.length; i++) {
             </a>
             </div>
             <div class="col-12 col-lg-7 col-xl-5">
-                <a class="cart_product_link" href="/product?q=${cart_data[i].hash_key}">
+                <a class="cart_product_link" href="/product?q=${cart_data[i].product_id}">
                     <h4 class="text-break text-light">${data.product.name}</h4>
                 </a>
                 <h6 class="text-break text-light">${cart_data[i].size}</h6>
