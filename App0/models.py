@@ -1,12 +1,6 @@
 from django.db import models
 import uuid
 
-# Google Storage
-from gdstorage.storage import GoogleDriveStorage
-
-# Define Google Drive Storage
-gd_storage = GoogleDriveStorage()
-
 class Products(models.Model):
 	""" Model for the products """
 
@@ -17,8 +11,8 @@ class Products(models.Model):
 	available_sizes = models.JSONField(null=True, blank=True, default=list)
 	category = models.JSONField(null=True, blank=True, default=list)
 	brand = models.CharField(max_length=9999, null=False)
-	image_0 = models.ImageField(storage=gd_storage, upload_to="lost-empire/")
-	image_1 = models.ImageField(storage=gd_storage, upload_to="lost-empire/", null=True, blank=True)
+	image_0 = models.ImageField(upload_to="lost-empire/")
+	image_1 = models.ImageField(upload_to="lost-empire/", null=True, blank=True)
 	hash_key = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
 	card_color = models.CharField(choices=(("black","black"), ("white","white"), ("gray","gray")), default="black", max_length=20)
 	date_made = models.DateTimeField(auto_now_add=True)

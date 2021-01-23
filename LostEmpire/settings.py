@@ -49,6 +49,12 @@ ADMINS = [("LT.Sana", "snm.developer@gmail.com")]
 
 MANAGERS = [("LT.Sana", "snm.developer@gmail.com")]
 
+# Cloudinary Credentials
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": os.getenv("CLOUDINARY_NAME"),
+    "API_KEY": os.getenv("CLOUDINARY_API_KEY"),
+    "API_SECRET": os.getenv("CLOUDINARY_API_SECRET"),
+}
 
 # Application definition
 
@@ -59,9 +65,10 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'cloudinary_storage',
     'django.contrib.staticfiles',
-    'gdstorage',
-    'django.contrib.humanize'
+    'cloudinary',
+    'django.contrib.humanize',
 ]
 
 MIDDLEWARE = [
@@ -216,3 +223,6 @@ SECURE_SSL_REDIRECT = True
 # DO NOT CHANGE THIS VALUE FROM 60s
 # IF SET TO LONGER IT WILL BREAK YOUR SITE IF HTTPS CONNECTION IS LOST
 SECURE_HSTS_SECONDS = 60
+
+# Cloudinary Settings for File Upload Storage
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
