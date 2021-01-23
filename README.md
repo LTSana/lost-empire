@@ -25,11 +25,15 @@ I use reCAPTCHA to prevent spam account creations and login attempts.
 The version of reCAPTCHA is version 3 to prevent user's the need to press on the 'I'M NOT A ROBOT' button.
 
 ## Installation Guide
+`You'll need to connect to a Postgres Database or any Database that supports JSONFields in order to run the WebApp`
 ```TXT
 1. Install Python3+ (https://www.python.org/)
 2. Run 'pip install r- requirements.txt'
-3. Set '.env' Values for enviroment are listed bellow
+3. Set '.env' (An example of the values for enviroment are listed bellow)
 4. Set 'DEBUG' to 'True' in settings.py
+5. Run 'python manage.py makemigrations'
+6. Run 'python manage.py migrate'
+7. Run 'python manage.py runserver' (This will run it on 127.0.0.1:8000 by default) if you wish to run it on a specific IP address run 'python manage.py runserver xxx.xxx.xxx.xxx:xxxx'
 ```
 
 ### '.env'
