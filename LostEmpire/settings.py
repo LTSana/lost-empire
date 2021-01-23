@@ -225,5 +225,4 @@ SECURE_SSL_REDIRECT = True
 SECURE_HSTS_SECONDS = 60
 
 # Cloudinary Settings for File Upload Storage
-MEDIA_URL = '/media/'  # or any prefix you choose
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
