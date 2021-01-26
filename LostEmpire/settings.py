@@ -197,14 +197,14 @@ RECAPTCHA_SECRET_KEY = os.getenv("RECAPTCHA_SECRET_KEY")
 #EMAIL_HOST_PASSWORD = os.environ.get('SENDGRID_API_KEY')
 
 # The FROM email address
-MAIL_SENDER = os.getenv("MAIL_SENDER") # The email address FROM
+#MAIL_SENDER = os.getenv("MAIL_SENDER") # The email address FROM
 
 # Get credentials for PayPal
 PAYPAL_CLIENT_ID = os.getenv("PAYPAL_CLIENT_ID")
 PAYPAL_CLIENT_SECRET = os.getenv("PAYPAL_CLIENT_SECRET")
 
 # Change Django's Default Email From
-DEFAULT_FROM_MAIL = "Lost Empire <noreply@lostempire.herokuapp.com>"
+#DEFAULT_FROM_MAIL = "Lost Empire <noreply@lostempire.herokuapp.com>"
 
 # Set this to True to avoid transmitting the CSRF cookie over HTTP accidentally.
 CSRF_COOKIE_SECURE = True
