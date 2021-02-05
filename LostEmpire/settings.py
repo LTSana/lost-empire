@@ -17,6 +17,9 @@ import dotenv
 import django_heroku
 import dj_database_url
 
+# Shopify
+from shopify_app import *
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -66,6 +69,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'shopify_app.apps.ShopifyAppConfig',
     'cloudinary_storage',
     'cloudinary',
     'django.contrib.humanize',
@@ -80,6 +84,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'shopify_app.middleware.LoginProtection',
 ]
 
 ROOT_URLCONF = 'LostEmpire.urls'
@@ -95,6 +100,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'shopify_app.context_processors.current_shop',
             ],
         },
     },
@@ -226,3 +232,6 @@ SECURE_HSTS_SECONDS = 60
 
 # Cloudinary Settings for File Upload Storage
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+
+SHOPIFY_API_KEY = os.getenv("SHOPIFY_API_KEY")
+SHOPIFY_API_SECRET = os.getenv("SHOPIFY_API_SECRET")

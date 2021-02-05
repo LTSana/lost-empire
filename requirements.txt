@@ -27,6 +27,7 @@ paypalrestsdk==1.13.1
 Pillow==8.1.0
 protobuf==3.14.0
 psycopg2==2.8.6
+pyactiveresource==2.2.2
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
 pycparser==2.20
@@ -34,8 +35,10 @@ pyOpenSSL==20.0.1
 python-dateutil==2.8.1
 python-dotenv==0.15.0
 pytz==2020.5
+PyYAML==5.4.1
 requests==2.25.1
 rsa==4.6
+ShopifyAPI==8.2.0
 six==1.15.0
 sqlparse==0.4.1
 uritemplate==3.0.1

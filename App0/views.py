@@ -35,6 +35,10 @@ from .forms import SigninForm, \
 					ZeusOrderForm, \
 					ZeusOrderDetailsForm
 
+# Shopify
+import shopify
+from shopify_app.decorators import shop_login_required
+
 # Import Models
 from .models import Products, Orders, CouponCodes
 
@@ -73,10 +77,15 @@ def csrf_failure(request, reason=""):
 #############################################################
 
 # Create your views here.
+
+@shop_login_required
 def index(request):
 	""" Home page """
 
 	if request.method == "GET":
+
+		product_data = shopify.product.all()
+		print(product_data)
 
 		# Get the system discound
 		system_discount = True if request.user.is_authenticated else False
