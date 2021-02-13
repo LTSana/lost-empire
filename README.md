@@ -1,4 +1,4 @@
-# lost-empire
+# lost-empire Shopify
 ### # (* DEMO *) Lost Empire is a E-Commerce website for selling ESPORTS merchandise #
 
 [![Django](https://img.shields.io/badge/Django%20version-3.1.5-blue)](https://www.djangoproject.com/download/)
@@ -7,6 +7,8 @@
 
 [![GitHub](https://img.shields.io/github/followers/LTSana?label=LT.Sana&style=social)]()
 [![Twitter](https://img.shields.io/twitter/follow/LT_Sana?label=LT.Sana&style=social)]()
+
+* This version of Lost Empire uses Shopify's REST API to get products and manage orders.
 
 This is a free time project I built to prove my group in building e-commerce website, and to gain expierince in using Django's Framework even more.
 All the merchandise on the Website are not real.
@@ -54,5 +56,12 @@ PAYPAL_CLIENT_SECRET = xxxx
 CLOUDINARY_NAME = xxxxxxxxxx
 CLOUDINARY_API_KEY = xxxxxxxxxxxxxxx
 CLOUDINARY_API_SECRET = xxxxxxxxxxxxxxxxx
+
+SHOPIFY_API_KEY = xxxxxxxxxxx
+SHOPIFY_API_SECRET = xxxxxxxxxxxxxx
+SHOPIFY_SHOP = xxxxxxxxxxxx
+
+SHOPIFY_API_KEY_STORE = xxxxxxxxxxxxxxxxxxx
+SHOPIFY_API_PASSWORD_STORE = xxxxxxxxxxxxxxxx
 
 ```
