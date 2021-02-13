@@ -45,7 +45,7 @@ DEBUG = False
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "192.168.100.2",
-    "lostempire.herokuapp.com"
+    "lostempire.herokuapp.com",
     ]
 
 ADMINS = [("LT.Sana", "snm.developer@gmail.com")]
@@ -184,13 +184,6 @@ CACHES = {
 # Redirect users to login page if they aren't logged in and trying to access a part that requires Authentication
 LOGIN_URL = "/signin"
 
-#
-# Google Drive Storage Settings
-#
-
-GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE = None
-#GOOGLE_DRIVE_STORAGE_MEDIA_ROOT = MEDIA_ROOT
-
 # reCAPTCHA v3
 RECAPTCHA_SITE_KEY = os.getenv("RECAPTCHA_SITE_KEY")
 RECAPTCHA_SECRET_KEY = os.getenv("RECAPTCHA_SECRET_KEY")
@@ -235,3 +228,6 @@ DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
 SHOPIFY_API_KEY = os.getenv("SHOPIFY_API_KEY")
 SHOPIFY_API_SECRET = os.getenv("SHOPIFY_API_SECRET")
+SHOPIFY_SHOP = os.getenv("SHOPIFY_SHOP")
+SHOPIFY_API_KEY_STORE = os.getenv("SHOPIFY_API_KEY_STORE")
+SHOPIFY_API_PASSWORD_STORE = os.getenv("SHOPIFY_API_PASSWORD_STORE")

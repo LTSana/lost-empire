@@ -3,11 +3,11 @@
 <div class="row justify-content-center">
 	{% for product in products %}
 	<div class="col-6 col-sm-5 col-md-3 col-lg-3 col-xl-2 d-flex flex-column justify-content-center align-items-center align-content-center content_style_cat_col card-color-{{product.card_color}}">
-		<a class="d-flex flex-column justify-content-between align-items-center align-content-center content_style_cat_link" href="/product?q={{product.hash_key}}">
-			<img class="content_style_cat_img" src="{{product.image_0.url|cut:'&export=download'}}" loading="auto">
-			<h6 class="text-break text-center d-flex flex-row justify-content-center align-items-center align-content-center content_style_cat_heading">‎€{{product.price}}
-				{% if product.old_price %}
-					<span class="sale_price_item">‎€{{product.old_price}}</span>
+		<a class="d-flex flex-column justify-content-between align-items-center align-content-center content_style_cat_link" href="/product?q={{product.id}}">
+			<img class="content_style_cat_img" src="{{product.image.src}}" loading="auto">
+			<h6 class="text-break text-center d-flex flex-row justify-content-center align-items-center align-content-center content_style_cat_heading">‎€{{product.variants.0.price}}
+				{% if product.compared_price %}
+					<span class="sale_price_item">‎€{{product.variants.0.compared_price}}</span>
 				{% endif %}
 			</h6>
 		</a>

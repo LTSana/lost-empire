@@ -259,7 +259,7 @@ class ShopForm(forms.Form):
 		category = cleaned_data.get("category")
 		brand = cleaned_data.get("brand")
 		page = cleaned_data.get("page")
-		
+
 		# Check if the size list is available and check to see if we can convert it to a list from a string using 'json'
 		if size:
 			try:
@@ -290,7 +290,7 @@ class ShopForm(forms.Form):
 class ProductForm(forms.Form):
 	""" Used to validate the Hash Key provided by the URL """
 
-	q = forms.UUIDField()
+	q = forms.IntegerField()
 
 	def clean(self):
 		cleaned_data = super(ProductForm, self).clean()
@@ -313,7 +313,9 @@ class ApiForm(forms.Form):
 		}
 	)
 
-	q = forms.UUIDField(required=False)
+	q = forms.IntegerField(required=False)
+
+	v = forms.IntegerField(required=False)
 
 	code = forms.CharField(
 		required=False,

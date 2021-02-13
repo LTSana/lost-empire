@@ -1,0 +1,1 @@
+localStorage.removeItem("cart_list") // Empty out the cart list

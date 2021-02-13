@@ -21,15 +21,18 @@ document.addEventListener("DOMContentLoaded", () => {
 				document.querySelector(".add_to_cart_btn").disabled = false
 			}
 		})
-	} else {
-		document.querySelector(".add_to_cart_btn").classList.toggle("disabled", false)
-		document.querySelector(".add_to_cart_btn").disabled = false
 	}
 
 	// For adding product to the cart
 	document.querySelector(".add_to_cart_btn").onclick = () => {
+		
+		// Set to false unless there is a size selected
+		_prodcut_size_selected = false
+
 		document.querySelectorAll(".product_size_btn").forEach(button => {
-			
+			// Set to true if there is are any sizes to select from
+			_prodcut_size_selected = true
+
 			// Check which Size button is selected
 			if (button.classList.contains("active")) {
 				
@@ -64,6 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
 									product_id: product_id,
 									quantity: 1,
 									size: button.dataset.size,
+									variant_id: button.dataset.variant_id,
 								})
 							}
 
@@ -76,6 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
 								product_id: product_id,
 								quantity: 1,
 								size: button.dataset.size,
+								variant_id: button.dataset.variant_id,
 							}]
 							
 							// Initialize cart list
@@ -88,6 +93,60 @@ document.addEventListener("DOMContentLoaded", () => {
 				}
 			}
 		})
+
+		// If there aren't any sizes for this Item
+		if (!_prodcut_size_selected) {
+			// Get the products ID
+			let product_id = document.querySelector("#product_ID").value
+			let variant_id = document.querySelector(".product_size_btn").dataset.variant_id
+					
+			// Check and make sure that the product ID is present
+			if (product_id) {
+				// Check if the cart list already exists in the local storage
+				if (localStorage.getItem("cart_list")) {
+
+					let new_product = true
+					let _i = 0
+					const cart_list = JSON.parse(localStorage.getItem("cart_list"))
+
+					// Check if the product is already in the cart and has the same size
+					for (let i = 0; i < cart_list.length; i++) {
+						if (cart_list[i].product_id === product_id) {
+							cart_list[i].quantity += 1
+							new_product = false
+						}
+						_i++
+					}
+
+					// If the product isn't in the cart add it to it
+					if (new_product) {
+						cart_list.push({
+							cart_id: _i,
+							product_id: product_id,
+							quantity: 1,
+							size: "n/a",
+							variant_id: variant_id,
+						})
+					}
+
+					// Update the local Storage cart
+					localStorage.setItem("cart_list", JSON.stringify(cart_list))
+
+				} else {
+					let cart_list = [{
+						cart_id: 0,
+						product_id: product_id,
+						quantity: 1,
+						size: "n/a",
+						variant_id: variant_id,
+					}]
+					
+					// Initialize cart list
+					localStorage.setItem("cart_list", JSON.stringify(cart_list))
+				}
+				location.href = "/cart"
+			}
+		}
 	}
 
 	// For switching big product image to the mini image selected

@@ -45,6 +45,9 @@ from .models import Products, Orders, CouponCodes
 # Get custom decorations
 from .utils.login_excluded import login_excluded
 
+# Get Shopify loader
+from .utils.load_shopify import load_shopify
+
 # Get custom form error checker
 from .utils.form_error_catch import form_error_catcher
 
@@ -55,11 +58,7 @@ from .utils.paypal_api_v2 import GetOrder, CapturePayPalOrder, RefundOrder
 from django.db.models import Q, Avg, Count
 
 # Other imports
-import requests
-import json
-import time
-import os
-import locale
+import requests, json, time, os, locale
 
 # CUSTOM ERROR HANDLERS
 #############################################################
@@ -76,49 +75,41 @@ def csrf_failure(request, reason=""):
 	return render(request, "lost-empire/site_templates/errors/403.html", status=403)
 #############################################################
 
-# Create your views here.
+# Initiate Shopify
 
-@shop_login_required
+# Create your views here.
+@load_shopify
 def index(request):
 	""" Home page """
 
 	if request.method == "GET":
 
-		product_data = shopify.product.all()
-		print(product_data)
-
-		# Get the system discound
-		system_discount = True if request.user.is_authenticated else False
-		if system_discount:
-			discount_per = 20
-
-		# Get 100 products from the Data
-		products = Products.objects.all().order_by("-date_made")[:100]
+		shopidy_products = shopify.Product.find()
+		for i in shopidy_products:
+			
+			if "black_card" in i.tags:
+				i.card_color = "black" 
+			elif "gray_card" in i.tags:
+				i.card_color = "gray" 
+			elif "white_card" in i.tags:
+				i.card_color = "white"
 
 		# Get the diffrent categories
 		tmp_list = []
 		category_list = []
-		for product in products:
-			for category in product.category:
-				for a in category["categories"]:
-					if a not in tmp_list and product.hash_key not in category_list:
-						category_list.append({
-							"category": a,
-							"product_id": product.hash_key,
-							"image_0": (product.image_0.url).replace("&export=download", "") if product.image_0.url else None,
-							"card_color": product.card_color
-						})
-						tmp_list.append(a)
-						break
-
-			# Add the discount price if available
-			if system_discount:
-				product.old_price = product.price
-				product.price = "{:,.2f}".format(product.price * (100 - discount_per) / 100)
+		for product in shopidy_products:
+			if product.product_type not in tmp_list:
+				category_list.append({
+					"category": product.product_type,
+					"product_id": product.id,
+					"image": product.image.src,
+					"card_color": product.card_color,
+				})
+				tmp_list.append(product.product_type)
 
 		html_content = {
-			"products": products[:8],
-			"categories": category_list[:4]
+			"categories": category_list[:4],
+			"products_shopify": shopidy_products[:8],
 		}
 		return render(request, "lost-empire/site_templates/index.html", html_content)
 	else:
@@ -485,13 +476,19 @@ def paypalTransationComplete(request):
 
 			return JsonResponse({"STATUS": True, "TC": False, "error_message": "Something wen't wrong. Try again!"})
 
+@load_shopify
 def checkoutComplete(request):
 	""" Show this page for when the transaction is complete """
 
 	if request.method == "GET":
 
+		order_data = shopify.Order.find()
+		for a in order_data:
+			if a.order_number == request.GET.get('order'):
+				break
+
 		html_content = {
-			"order_id": request.GET.get('order'),
+			"order_id": f"Thank You {a.billing_address.first_name} | Order #{request.GET.get('order')}",
 			"error_message": request.GET.get('er'),
 		}
 		return render(request, "lost-empire/site_templates/transactions/complete.html", html_content)
@@ -569,6 +566,7 @@ def accountSecurity(request):
 			
 			return HttpResponseRedirect(reverse("accountSecurity"))
 
+@load_shopify
 def shop(request):
 	""" Shop page """
 
@@ -584,10 +582,181 @@ def shop(request):
 
 		# Validate all the inputs from the browser
 		form = ShopForm(request.GET)
-		
+
 		if form.is_valid():
 
-			if (len(json.loads(form.cleaned_data.get("size"))) if form.cleaned_data.get("size") else 0) <= 0 and (len(json.loads(form.cleaned_data.get("category"))) if form.cleaned_data.get("category") else 0) <= 0 and (len(json.loads(form.cleaned_data.get("brand"))) if form.cleaned_data.get("brand") else 0) <= 0 and not form.cleaned_data.get("page"):
+			# Initialize product data list
+			product_data = []
+
+			# Check if the user is filtering by category (Type of product)
+			category_boolean = False
+			if form.cleaned_data.get("category"):
+				if len(json.loads(form.cleaned_data.get("category"))) > 0:
+					category_boolean = True
+					for category in json.loads(form.cleaned_data.get("category")):
+						product_data.extend(shopify.Product.find(product_type=category))
+
+			# Check if the user is filtering by brand (Vendor)
+			brand_boolean = False
+			if form.cleaned_data.get("brand"):
+				if len(json.loads(form.cleaned_data.get("brand"))) > 0:
+					brand_boolean = True
+					for brand in json.loads(form.cleaned_data.get("brand")):
+						product_data.extend(shopify.Product.find(vendor=brand))
+			
+			# If there aren't any category of brand searches than get all the products
+			if not category_boolean and not brand_boolean:
+				product_data = shopify.Product.find()
+
+
+			# Check if the user if filtering by Size
+			size_boolean = False
+			if form.cleaned_data.get("size"):
+				if len(json.loads(form.cleaned_data.get("size"))) > 0:
+					size_boolean = True
+
+			# Check if the user is trying to search for a product
+			search_boolean = False
+			if form.cleaned_data.get("search"):
+				if len(form.cleaned_data.get("search")) > 0:
+					search_boolean = True
+
+			# Remove any duplicate products
+			tmp_list_id = []
+			tmp_list_product_data = []
+			for product in product_data:
+				if product.id not in tmp_list_id and product:
+					
+					# Search products by title, id, description(body-html), vendor, tags and type
+					if search_boolean:
+						if len(form.cleaned_data.get("search")) > 0:
+							if form.cleaned_data.get("search") in product.title or \
+								 form.cleaned_data.get("search") in str(product.id) or \
+									  form.cleaned_data.get("search") in product.body_html or \
+										  form.cleaned_data.get("search") in product.vendor or \
+											  form.cleaned_data.get("search") in product.tags or \
+												  form.cleaned_data.get("search") in product.product_type:
+								# Check to see if there aren't any duplicates
+								if product.id not in tmp_list_id:
+									tmp_list_id.append(product.id)
+									tmp_list_product_data.append(product)
+
+					elif size_boolean:
+						if len(json.loads(form.cleaned_data.get("size"))) > 0:
+							for size in json.loads(form.cleaned_data.get("size")):
+
+									# Check if there product has options
+									if product.options:
+										for option in product.options:
+
+											# Check if the options has the Size option
+											if option.name == "Size":
+												for value in option.values:
+													if value == size:
+														# Check to see if there aren't any duplicates
+														if product.id not in tmp_list_id:
+															tmp_list_id.append(product.id)
+															tmp_list_product_data.append(product)
+							
+					else:
+						tmp_list_id.append(product.id)
+						tmp_list_product_data.append(product)
+
+			product_data = tmp_list_product_data
+			
+			# Get all the filter options
+			available_size_list = []
+			available_brand_list = []
+			available_category_list = []
+			for product in product_data:
+
+				# Get the products card color
+				if "black_card" in product.tags:
+					product.card_color = "black" 
+				elif "gray_card" in product.tags:
+					product.card_color = "gray" 
+				elif "white_card" in product.tags:
+					product.card_color = "white"
+				
+				# Make the category list (The types of products)
+				if product.product_type not in available_category_list:
+					available_category_list.append(product.product_type)
+				
+				# Make the brand list (The vendor)
+				if product.vendor not in available_brand_list:
+					available_brand_list.append(product.vendor)
+
+				# Make the Size list (Option values)
+				if product.options:
+					for option in product.options:
+						if option.name == "Size":
+							for value in option.values:
+								if value not in available_size_list:
+									available_size_list.append(value)
+
+			if not form.cleaned_data.get("page"):
+				# Get the previous page
+				previous_page = 0
+
+				# Check if the user can go to the next page
+				next_page = 1 if len(product_data[1 * number_of_products:]) > 0 else 0
+
+				# Check how many pages forward the user can go before not having any content
+				for a in range(1, 5):
+					if len(product_data[a*number_of_products:]) <= 0:
+						break								
+				pages_forwards = range(1, a)
+
+				# Set the params for pagination
+				pagination_data = {
+						"current_page": 0, 
+						"previous_page": previous_page, 
+						"next_page": next_page,
+						"pages_forwards": pages_forwards,
+						}
+			else:
+			
+				# Get the number of the page and multiple it by the number of products allowed in each page
+				try:
+					page_start = form.cleaned_data.get("page") * number_of_products if form.cleaned_data.get("page") else 0
+				except TypeError:
+					return HttpResponseRedirect(reverse("shop"))
+
+				# Get the previous page
+				previous_page = form.cleaned_data.get("page") - 1 if form.cleaned_data.get("page") - 1 > 0 else 0
+
+				# Get the number of pages back the user can go
+				pages_backwards = range((form.cleaned_data.get("page") - 3) if (form.cleaned_data.get("page") - 3) > 0 else 0, form.cleaned_data.get("page"))
+				
+				# Check if the user can go to the next page
+				next_page = form.cleaned_data.get("page") + 1 if len(product_data[(form.cleaned_data.get("page") + 1) * number_of_products:]) > 0 else 0
+
+				# Check how many pages forward the user can go before not having any content
+				for a in range((form.cleaned_data.get("page")+1), (form.cleaned_data.get("page")+5)):
+					if len(product_data[a*number_of_products:]) <= 0:
+						break								
+				pages_forwards = range((form.cleaned_data.get("page")+1), a)
+
+				# Set the params for pagination
+				pagination_data = {
+						"current_page": form.cleaned_data.get("page"), 
+						"previous_page": previous_page, 
+						"next_page": next_page,
+						"pages_backwards": pages_backwards,
+						"pages_forwards": pages_forwards,
+						}
+
+			# Set the HTML Content
+			html_content = {
+				"total_products": len(shopify.Product.find()),
+				"products": product_data[page_start:page_start + number_of_products] if form.cleaned_data.get("page") else product_data[:number_of_products],
+				"page_numbers": pagination_data,
+				"available_size_list": available_size_list,
+				"available_category_list": available_category_list,
+				"available_brand_list": available_brand_list,
+			}
+
+			""" if (len(json.loads(form.cleaned_data.get("size"))) if form.cleaned_data.get("size") else 0) <= 0 and (len(json.loads(form.cleaned_data.get("category"))) if form.cleaned_data.get("category") else 0) <= 0 and (len(json.loads(form.cleaned_data.get("brand"))) if form.cleaned_data.get("brand") else 0) <= 0 and not form.cleaned_data.get("page"):
 				
 				# Get all the products
 				products = Products.objects.all().exclude(available=False).order_by("-date_made")
@@ -780,13 +949,14 @@ def shop(request):
 					"available_size_list": available_size_list,
 					"available_category_list": available_category_list,
 					"available_brand_list": available_brand_list,
-				}
+				} """
 
 			# Render the page with the content
 			return render(request, "lost-empire/site_templates/shop.html", html_content)	
 		else:
 			return render(request, "lost-empire/site_templates/shop.html")
 
+@load_shopify
 def product(request):
 	""" Product page """
 
@@ -797,6 +967,43 @@ def product(request):
 		if form.is_valid():
 
 			try:
+				product = shopify.Product.find(int(form.cleaned_data["q"]))
+
+				if product:
+					if "black_card" in product.tags:
+						product.card_color = "black" 
+					elif "gray_card" in product.tags:
+						product.card_color = "gray" 
+					elif "white_card" in product.tags:
+						product.card_color = "white"
+
+					if product:
+						html_content = {
+							"product": product
+						}
+					else:
+						html_content = {
+							"product": {
+								"title": "OUT OF STOCK!",
+								"description": "OUT OF STOCK!"
+							}
+						}
+				else:
+					html_content = {
+						"product": {
+							"title": "OUT OF STOCK!",
+							"description": "OUT OF STOCK!"
+						}
+					}
+			except:
+				html_content = {
+					"product": {
+						"title": "OUT OF STOCK!",
+						"description": "OUT OF STOCK!"
+					}
+				}
+
+			""" try:
 				# Get the product using the Hash Key provided in the request
 				product = Products.objects.get(hash_key=form.cleaned_data["q"])
 
@@ -827,18 +1034,19 @@ def product(request):
 						"name": "OUT OF STOCK!",
 						"description": "OUT OF STOCK!"
 					}
-				}
+				} """
 
 		else:
 			html_content = {
 				"product": {
-					"name": "OUT OF STOCK!",
-					"description": "OUT OF STOCK!"
+					"title": "OUT OF STOCK! F0",
+					"description": "OUT OF STOCK! F0"
 				}
 			} 
 
 		return render(request, "lost-empire/site_templates/product.html", html_content)
 
+@load_shopify
 def api_handler(request):
 	""" Handles any API request """
 
@@ -856,7 +1064,47 @@ def api_handler(request):
 					discount_per = 20
 
 				if form.cleaned_data["q"]:
-					try:
+
+					# Get the product details from Shopify
+					product = shopify.Product.find(form.cleaned_data["q"])
+
+					# Check what card color it uses
+					if "black_card" in product.tags:
+						product.card_color = "black" 
+					elif "gray_card" in product.tags:
+						product.card_color = "gray" 
+					elif "white_card" in product.tags:
+						product.card_color = "white"
+
+
+					# Look for the variant that is being queried
+					product_stock_status = ""
+					if form.cleaned_data["v"]:
+						for a in product.variants:
+							if a.id == form.cleaned_data["v"]:
+								if not a.requires_shipping:
+									a.inventory_quantity = 999
+								else:
+									if a.inventory_quantity <= 0:
+										product_stock_status = "(OUT OF STOCK)"
+								break
+
+					return JsonResponse({"STATUS": True, "product": {
+																	"id": product.id,
+																	"v_id": product.variants[0].id,
+																	"images": [image.src for image in product.images],
+																	#"status": product.status,
+																	"title": product.title +" "+ product_stock_status, 
+																	"price": product.variants[0].price,
+																	"compare_at_price": product.variants[0].compare_at_price,
+																	"description": product.body_html,
+																	"available_sizes": [size for size in product.options[0].values],
+																	"card_color": product.card_color,
+																	"max_quantity": a.inventory_quantity,
+																	}
+										})
+
+					""" try:
 						product = Products.objects.get(hash_key=form.cleaned_data["q"])
 						return JsonResponse({"STATUS": True, "product": {
 																	"hash_key": product.hash_key,
@@ -874,11 +1122,13 @@ def api_handler(request):
 																	}
 												})
 					except Products.DoesNotExist:
-						return JsonResponse({"STATUS": True, "product": {}})
+						return JsonResponse({"STATUS": True, "product": {}}) """
 				return JsonResponse({"STATUS": False})
 			
 			# Check if the API is asking for a coupon code
 			elif form.cleaned_data.get("data") == "coupon":
+
+				discount_code = shopify.DiscountCode.find()
 
 				# Check if the Coupon Code is valid and in the Database
 				try:

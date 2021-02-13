@@ -30,32 +30,39 @@ let cart_list = []
 
 const cart_data = JSON.parse(localStorage.getItem("cart_list"))
 for (let i = 0; i < cart_data.length; i++) {
+  // Change the color of the text
+  document.querySelector("#cart_status_heading").classList.toggle("text-light", false)
+  document.querySelector("#cart_status_heading").classList.toggle("text-info", true)
+
+  // Tell the user the cart items are loading
+  document.querySelector("#cart_status_heading").innerHTML = "Loading products..."
+
   // Set a time out to avoid sending too many requests at once
   setTimeout(() => {
     // Get Product data from REST API
-    $.get(`/api?data=product&q=${encodeURIComponent(cart_data[i].product_id)}`).done((data) => {
+    $.get(`/api?data=product&q=${encodeURIComponent(cart_data[i].product_id)}&v=${encodeURIComponent(cart_data[i].variant_id)}`).done((data) => {
       if (data.STATUS) {
         const html_template = document.createElement("span")
         if (data.product.discount) {
-          discount_html = `<span class="sale_price_item">${data.product.old_price}</span>`
+          discount_html = `<span class="sale_price_item">${data.product.compare_at_price}</span>`
         } else {
           discount_html = ``
         }
         html_template.innerHTML = `
           <div class="row d-flex flex-row justify-content-around product-row-${cart_data[i].cart_id} cart-row-holders">
             <div class="col-12 col-sm-6 col-lg-5 col-xl-3 d-flex justify-content-center align-items-start align-content-start">
-            <a class="d-flex flex-column justify-content-center align-items-center align-content-center" href="/product?q=${cart_data[i].hash_key}">
-              <img class="img-fluid cart_product_image card-color-${data.product.card_color}" src="${data.product.image_0}" width="100%" />
+            <a class="d-flex flex-column justify-content-center align-items-center align-content-center" href="/product?q=${cart_data[i].product_id}">
+              <img class="img-fluid cart_product_image card-color-${data.product.card_color}" src="${data.product.images[0]}" width="100%" />
             </a>
             </div>
             <div class="col-12 col-lg-7 col-xl-5">
                 <a class="cart_product_link" href="/product?q=${cart_data[i].product_id}">
-                    <h4 class="text-break text-light">${data.product.name}</h4>
+                    <h4 class="text-break text-light">${data.product.title}</h4>
                 </a>
                 <h6 class="text-break text-light">${cart_data[i].size}</h6>
                 <h6 class="text-break text-light">
                   <i class="fas fa-euro-sign"></i>
-                  <strong>${(data.product.price).toFixed(2)}</strong>`+
+                  <strong>${data.product.price}</strong>`+
                   discount_html
                 +`</h6>
             </div>
@@ -72,20 +79,30 @@ for (let i = 0; i < cart_data.length; i++) {
         cart_list.push({
               cart_id: cart_data[i].cart_id,
               product_id: cart_data[i].product_id,
+              variant_id: cart_data[i].variant_id,
               quantity: cart_data[i].quantity,
               size: cart_data[i].size,
-              product_name: data.product.name,
+              product_name: data.product.title,
               price: data.product.price,
-              available_units: 999,
+              available_units: data.product.max_quantity,
               card_color: data.product.card_color,
-              image_0: data.product.image_0,
+              image_0: data.product.images[0].src,
             })
         
-        // Update the current price
-        update_price()
-  
-        // Enable the controls for the Cart products displayed
-        update_products()
+        // Enable the checkout button
+        if ((cart_data.length - 1) <= i) {
+          // Remove the loading products inticator
+          document.querySelector("#cart_status_heading").innerHTML = ""
+
+          // Enable the checkout button
+          document.querySelector("#checkout_btn").disabled = false
+
+          // Update the current price
+          update_price()
+    
+          // Enable the controls for the Cart products displayed
+          update_products()
+        }
       }
     })
   }, (2000 * i))
@@ -95,8 +112,8 @@ for (let i = 0; i < cart_data.length; i++) {
 update_price = () => {
 
   // Variables for the PRICEs
-  let subtotal_HTML = document.querySelector("#subtotal_price > strong")
-  let shipping_HTML = document.querySelector("#shipping_price > strong")
+  /* let subtotal_HTML = document.querySelector("#subtotal_price > strong")
+  let shipping_HTML = document.querySelector("#shipping_price > strong") */
   let total_HTML = document.querySelector("#total_price > strong")
 
   // A tempurary holder for calculating the subtotal
@@ -114,10 +131,10 @@ update_price = () => {
   }
 
   // Add the sum of all the cart products to subtotal
-  subtotal = _sum
+  /* subtotal = _sum */
 
   // If there's no subtotal remove shipping costs
-  if (subtotal <= 0) {
+  /* if (subtotal <= 0) {
     shipping = 0
     
     // If the total is 0 disable the PayPal butttons
@@ -139,22 +156,22 @@ update_price = () => {
         shipping = 23.48
       }
     }
-  }
+  } */
 
   // Calculate the quatity of each item and it's price
-  subtotal_HTML.innerHTML = (subtotal).toFixed(2)
+  /* subtotal_HTML.innerHTML = (subtotal).toFixed(2)
 
   // Get the location of the shipping and calculate the price
   shipping_HTML.innerHTML = (shipping).toFixed(2)
 
   // Add everything to the total price
-  total_price = subtotal + shipping
+  total_price = subtotal + shipping */
 
-  total_HTML.innerHTML = (total_price).toFixed(2)
+  total_HTML.innerHTML = (_sum).toFixed(2)
 }
 
 // Apply coupon code
-document.querySelector("#coupon_apply_btn").onclick = () => {
+/* document.querySelector("#coupon_apply_btn").onclick = () => {
   coupon_code = document.querySelector("#coupon_input")
 
   let myRegEx  = /[^a-z\d]/i
@@ -206,10 +223,10 @@ document.querySelector("#coupon_apply_btn").onclick = () => {
     // Update the current price
     update_price()
   }
-}
+} */
 
 // Enable PayPal checkout when the CheckBox for the Privacy and Terms is checked
-document.querySelector("#shipping_country").onchange = () => {
+/* document.querySelector("#shipping_country").onchange = () => {
   if (document.querySelector("#shipping_country").value) {
 
     // Enable the PayPal buttons
@@ -226,7 +243,7 @@ document.querySelector("#shipping_country").onchange = () => {
     // Update the current price
     update_price()
   }
-}
+} */
 
 update_products = () => {
   // Increase the product quantity being ordered
@@ -358,7 +375,28 @@ update_products = () => {
   })
 }
 
-setTimeout(() => {
+// Check if the checkout button is present
+if (document.querySelector("#checkout_btn")) {
+
+  // Check if the Checkout button was pressed
+  document.querySelector("#checkout_btn").onclick = () => {
+
+    // Create the query for the cart
+    let query = ""
+    for (let i = 0; i < cart_list.length; i++) {
+      query += `${cart_list[i].variant_id}:${cart_list[i].quantity},`
+    }
+
+    // Go to the checkout page on Shopify
+    location.href = `http://lost-empire-2020.myshopify.com/cart/${query}`
+  }
+}
+
+// For Shopify's Checkout complete script
+/* let order_number = (document.querySelector(".os-order-number").innerHTML).split("#")[1]
+location.href = `http://127.0.0.1:8000/cart/tc?order=${order_number}` */
+
+/* setTimeout(() => {
   paypal.Buttons({
     style: {
       shape: 'pill',
@@ -423,7 +461,7 @@ setTimeout(() => {
       }
     }).render('#paypal-button-container');
     //This function displays Smart Payment Buttons on your web page.
-}, 700)
+}, 700) */
 
 setTimeout(() => {
   // Initialize the prices
