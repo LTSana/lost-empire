@@ -21,7 +21,7 @@ if (document.querySelector("#navbar_cart_count")) {
 }
 
 // Used to control the Global Alert (STARTER GUIDE)
-if (!localStorage.getItem("ShowGlobalAlert")) {
+if (!localStorage.getItem("ShowGlobalAlert_v2")) {
 
 	// Display the alert to the UI
 	const GlobalAlert = document.createElement("span")
@@ -40,7 +40,7 @@ if (!localStorage.getItem("ShowGlobalAlert")) {
 
 	// Remove the global alert forever till the cookies are cleared
 	document.querySelector(".dsa-btn").onclick = () => {
-		localStorage.setItem("ShowGlobalAlert", true)
+		localStorage.setItem("ShowGlobalAlert_v2", true)
 		document.querySelector(".global-alert").remove()
 		document.querySelector("body").style.overflowY = "scroll"
 	}
