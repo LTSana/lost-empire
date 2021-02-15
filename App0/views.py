@@ -602,7 +602,21 @@ def shop(request):
 				if len(json.loads(form.cleaned_data.get("brand"))) > 0:
 					brand_boolean = True
 					for brand in json.loads(form.cleaned_data.get("brand")):
-						product_data.extend(shopify.Product.find(vendor=brand))
+						if category_boolean and product_data:
+							
+							# Figure out which indexed products need to be removed
+							unwanted = []
+							for alpha in range(len(product_data)):
+								if product_data[alpha].vendor != brand:
+									unwanted.append(alpha)
+							
+							# To avoid index error reverse the list and make that the large numbers go first
+							for index_remove in sorted(unwanted, reverse = True):
+								del product_data[index_remove]
+
+							print(product_data)
+						else:
+							product_data.extend(shopify.Product.find(vendor=brand))
 			
 			# If there aren't any category of brand searches than get all the products
 			if not category_boolean and not brand_boolean:
