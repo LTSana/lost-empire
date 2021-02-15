@@ -130,43 +130,6 @@ update_price = () => {
     }
   }
 
-  // Add the sum of all the cart products to subtotal
-  /* subtotal = _sum */
-
-  // If there's no subtotal remove shipping costs
-  /* if (subtotal <= 0) {
-    shipping = 0
-    
-    // If the total is 0 disable the PayPal butttons
-    document.querySelector("#paypal-button-container").style.pointerEvents = "none";
-    document.querySelector("#paypal-button-container").style.opacity = "0.5";
-
-  } else {
-
-    // Update the shipping price to the country that has been selected
-    const country_selection = document.querySelector("#shipping_country").value
-    if (country_selection) {
-      
-      country = document.querySelector(`#country-${country_selection}`).dataset.country
-      const continent = document.querySelector(`#country-${country_selection}`).dataset.continent
-      if (["EU", "NA"].includes(continent)) {
-        // Update the shipping price
-        shipping = 21.34
-      } else {
-        shipping = 23.48
-      }
-    }
-  } */
-
-  // Calculate the quatity of each item and it's price
-  /* subtotal_HTML.innerHTML = (subtotal).toFixed(2)
-
-  // Get the location of the shipping and calculate the price
-  shipping_HTML.innerHTML = (shipping).toFixed(2)
-
-  // Add everything to the total price
-  total_price = subtotal + shipping */
-
   total_HTML.innerHTML = (_sum).toFixed(2)
 }
 
@@ -220,26 +183,6 @@ update_price = () => {
     document.querySelector("#coupon_apply_btn").classList.toggle("btn-danger", true)
     document.querySelector("#coupon_apply_btn").innerHTML = "TRY AGAIN"
     
-    // Update the current price
-    update_price()
-  }
-} */
-
-// Enable PayPal checkout when the CheckBox for the Privacy and Terms is checked
-/* document.querySelector("#shipping_country").onchange = () => {
-  if (document.querySelector("#shipping_country").value) {
-
-    // Enable the PayPal buttons
-    document.querySelector("#paypal-button-container").style.pointerEvents = "auto";
-    document.querySelector("#paypal-button-container").style.opacity = "1";
-
-    // Update the current price
-    update_price()
-
-  } else {
-    document.querySelector("#paypal-button-container").style.pointerEvents = "none";
-    document.querySelector("#paypal-button-container").style.opacity = "0.5";
-
     // Update the current price
     update_price()
   }
@@ -391,77 +334,6 @@ if (document.querySelector("#checkout_btn")) {
     location.href = `http://lost-empire-2020.myshopify.com/cart/${query}`
   }
 }
-
-// For Shopify's Checkout complete script
-/* let order_number = (document.querySelector(".os-order-number").innerHTML).split("#")[1]
-location.href = `http://127.0.0.1:8000/cart/tc?order=${order_number}` */
-
-/* setTimeout(() => {
-  paypal.Buttons({
-    style: {
-      shape: 'pill',
-      color: 'black',
-      layout: 'vertical',
-      label: 'checkout',  
-    },
-      createOrder: function(data, actions) {
-        let price0 = (total_price).toFixed(2)
-
-        // Prevent the user from leaving the page.
-        window.onbeforeunload = () => {
-          return "Don't leave. Your order is being processed.";
-        };
-
-        // Lock the cart
-        document.querySelector("#hero_1_product_col").style.pointerEvents = "none";
-        document.querySelector("#hero_1_product_col").style.opacity = "0.5";
-  
-        // This function sets up the details of the transaction, including the amount and line item details.
-        return actions.order.create({
-          purchase_units: [{
-            amount: {
-              value: price0
-            }
-          }]
-        });
-      },
-      onApprove: function(data, actions) {
-        // This function captures the funds from the transaction.
-        
-        $.post("cart/pptc", {"csrfmiddlewaretoken": csrftoken, 
-                              "order_id": data.orderID, 
-                              "cart_data": localStorage.getItem("cart_list"),
-                              "country": country,
-                              "coupon_code": document.querySelector("#coupon_input").value
-                            }).done(
-            (data) => {
-              
-              // Used to deactivate the dont leave page warning
-              window.onbeforeunload = () => {
-                // blank function do nothing
-              }
-
-              // Check if the process went well
-              if (data.STATUS) {
-                if (data.TC) {
-                  localStorage.removeItem("cart_list")
-                  location.href = `/cart/tc?order=${data.order_id}`
-                } else {
-                  location.href = `/cart/tc?er=${data.error_message}`
-                }
-              } else {
-                location.href = `/cart/tc?er=Failed with no error message`
-              }
-            }
-          )
-      },
-      onError: err => {
-        alert("An error in the payment happened. \nPlease re-try.")
-        console.error('error from the onError callback', err);
-      }
-    }).render('#paypal-button-container');
-    //This function displays Smart Payment Buttons on your web page.
-}, 700) */
 
 setTimeout(() => {
   // Initialize the prices
